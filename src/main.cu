@@ -186,8 +186,7 @@ void fail(const char* msg) {
  * @brief Print usage information.
  */
 void print_usage(const char* program_name) {
-    printf("Usage: %s --mode <cpu|gpu> --rules <rules_file> --input <input_file> [--threads <n>] [--gpu-streams <n>] [--gpu-wave <n>] [--gpu-chunk-mb <n>]
-", program_name);
+    printf("Usage: %s --mode <cpu|gpu> --rules <rules_file> --input <input_file> [--threads <n>] [--gpu-streams <n>] [--gpu-wave <n>] [--gpu-chunk-mb <n>]\n", program_name);
     printf("\nRequired arguments:\n");
     printf("  --mode      <cpu|gpu>       Processing mode (CPU or GPU)\n");
     printf("  --rules     <rules_file>    Path to the rules file\n");
@@ -891,7 +890,7 @@ int run_gpu_mode(const config_t* config) {
         for (long i = 0; i < line_count; ++i) fprintf(out, "%s\\n", all_results[i]);
         fclose(out);
 
-        char* perf_filename = generate_perf_filename(config);
+        char* perf_filename = generate_performance_filename(config, config->input_file);
         FILE* pf = fopen(perf_filename, "w");
         if (pf) {
             fprintf(pf, "Mode,DataSet,Library,TotalTime,TotalMatches,InputPerSec,MBPerSec,MatchPerSec,LatencyMs,H2D,Kernel,D2H\\n");
