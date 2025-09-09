@@ -99,6 +99,9 @@ DEFAULT_RULES   := rules.txt
 DEFAULT_INPUT   := set1.txt
 DEFAULT_THREADS := 4
 DEFAULT_MODE    := cpu
+GPU_STREAMS		:= 6
+GPU_WAVE 		:= 48
+GPU_CHUNK_MB	:= 128
 
 # ---------------------------------------------------------------------------
 # Build rules
@@ -160,7 +163,8 @@ perf-test-gpu: $(TARGET) | dirs
 		echo "              Testing Dataset: $${dataset}       "; \
 		echo "================================================="; \
 		echo "Testing with GPU..."; \
-		$(TARGET) --mode gpu --rules $(DEFAULT_RULES) --input $${dataset}; \
+		$(TARGET) --mode gpu --rules $(DEFAULT_RULES) --input $${dataset} --gpu-streams $(GPU_STREAMS) --gpu-wave $(GPU_WAVE) --gpu-chunk-mb $(GPU_CHUNK_MB); \
+			echo \"Using GPU flags: streams=$(GPU_STREAMS) wave=$(GPU_WAVE) chunk=$(GPU_CHUNK_MB)MB\"; \
 	done
 	@echo "GPU performance tests complete."
 
