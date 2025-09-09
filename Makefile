@@ -134,7 +134,8 @@ $(TARGET): $(OBJS) | dirs
 
 clean:
 	@echo "Cleaning up..."
-	@rm -f $(OBJS) $(TARGET)
+	@rm -f $(BUILD_DIR)/*
+	@rm -f $(BIN_DIR)/*
 	@rm -f $(RESULTS_DIR)/*
 
 # ---------------------------------------------------------------------------

@@ -627,7 +627,7 @@ int run_cpu_mode(const config_t* config) {
     double throughput_input_per_sec = line_count / elapsed_seconds;
     double throughput_mbytes_per_sec = (total_bytes / (1024.0 * 1024.0)) / elapsed_seconds;
     double throughput_match_per_sec = total_matches / elapsed_seconds;
-    double latency_ms = (elapsed_seconds * 1000.0) / line_count;
+    double latency_ms = (elapsed_seconds * 1000.0) / (line_count / config->num_threads);
 
     printf("Performance Metrics:\n");
     printf("  Total Time: %.4f seconds\n", elapsed_seconds);
