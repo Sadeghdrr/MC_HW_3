@@ -100,8 +100,8 @@ DEFAULT_INPUT   := set1.txt
 DEFAULT_THREADS := 4
 DEFAULT_MODE    := cpu
 GPU_STREAMS		:= 6
-GPU_WAVE 		:= 48
-GPU_CHUNK_MB	:= 128
+GPU_WAVE 		:= 32
+GPU_CHUNK_MB	:= 64
 
 # ---------------------------------------------------------------------------
 # Build rules

@@ -311,12 +311,12 @@ config_t parse_arguments(int argc, char* argv[]) {
         } else if (strcmp(argv[i], "--gpu-streams") == 0 && i + 1 < argc) {
             config.gpu_streams = atoi(argv[i + 1]); i++;
         } else if (strcmp(argv[i], "--gpu-wave") == 0 && i + 1 < argc) {
-            config.gpu_wave = atoi(argv[i + 1]); i++;
+            config.gpu_wave = atoi(argv[i + 1]);
+            i++;
         } else if (strcmp(argv[i], "--gpu-chunk-mb") == 0 && i + 1 < argc) {
-            config.gpu_chunk_mb = atoi(argv[i + 1]); i++;
-            config.num_threads = atoi(argv[i + 1]);
-            if (config.num_threads <= 0) {
-                fprintf(stderr, "ERROR: Number of threads must be a positive integer.\n");
+            config.gpu_chunk_mb = atoi(argv[i + 1]);
+            if (config.gpu_chunk_mb <= 0) {
+                fprintf(stderr, "ERROR: --gpu-chunk-mb must be a positive integer.\n");
                 print_usage(argv[0]);
             }
             i++;
