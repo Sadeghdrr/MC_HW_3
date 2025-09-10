@@ -895,17 +895,17 @@ int run_gpu_mode(const config_t* config) {
         printf("Writing results to '%s'...\n", output_filename);
         FILE* out = fopen(output_filename, "w");
         if (!out) fail("Could not open output file for writing.");
-        for (long i = 0; i < line_count; ++i) fprintf(out, "%s\\n", all_results[i]);
+        for (long i = 0; i < line_count; ++i) fprintf(out, "%s\n", all_results[i]);
         fclose(out);
 
         char* perf_filename = generate_performance_filename(config, config->input_file);
         FILE* pf = fopen(perf_filename, "w");
         if (pf) {
-            fprintf(pf, "Mode,DataSet,Library,TotalTime,TotalMatches,InputPerSec,MBPerSec,MatchPerSec,LatencyMs,H2D,Kernel,D2H\\n");
+            fprintf(pf, "Mode,DataSet,Library,TotalTime,TotalMatches,InputPerSec,MBPerSec,MatchPerSec,LatencyMs,H2D,Kernel,D2H\n");
             const char* dataset = strrchr(config->input_file, '/'); dataset = dataset? dataset+1: config->input_file;
             char dataset_clean[256]; strncpy(dataset_clean, dataset, sizeof(dataset_clean)-1); dataset_clean[sizeof(dataset_clean)-1]=0;
             char* dot = strrchr(dataset_clean, '.'); if (dot) *dot = 0;
-            fprintf(pf, "GPU,%s,CUDA,%.6f,%lld,%.2f,%.2f,%.2f,%.6f,%.6f,%.6f,%.6f\\n",
+            fprintf(pf, "GPU,%s,CUDA,%.6f,%lld,%.2f,%.2f,%.2f,%.6f,%.6f,%.6f,%.6f\n",
                     dataset_clean, elapsed, total_matches, thr_input, thr_mb, thr_match, latency_ms, acc_h2d, acc_kernel, acc_d2h);
             fclose(pf);
         }
@@ -925,7 +925,7 @@ int run_gpu_mode(const config_t* config) {
 
         return EXIT_SUCCESS;
     } catch (const std::exception& e) {
-        fprintf(stderr, "GPU mode error: %s\\n", e.what());
+        fprintf(stderr, "GPU mode error: %s\n", e.what());
         if (pool_mr) { rmm::mr::set_current_device_resource(cuda_mr.get()); pool_mr.reset(); }
         if (cuda_mr) cuda_mr.reset();
         return EXIT_FAILURE;
