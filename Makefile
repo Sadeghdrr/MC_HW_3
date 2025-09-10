@@ -141,7 +141,7 @@ clean:
 # ---------------------------------------------------------------------------
 run: $(TARGET) | dirs
 	@echo "Running default demo with $(DEFAULT_MODE) mode and $(DEFAULT_THREADS) threads..."
-	@$(TARGET) --mode $(DEFAULT_MODE) --rules $(DEFAULT_RULES) --input $(DEFAULT_INPUT) --threads $(DEFAULT_THREADS)
+	@$(TARGET) --mode $(DEFAULT_MODE) --rules sample_rules.txt --input sample_input.txt --threads $(DEFAULT_THREADS)
 	@echo "Demo run complete."
 
 perf-test-cpu: $(TARGET) | dirs
