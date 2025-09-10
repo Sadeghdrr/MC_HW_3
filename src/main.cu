@@ -402,6 +402,13 @@ static int onMatch(unsigned int id, unsigned long long from, unsigned long long 
     
     MatchContext* context = (MatchContext*)ctx;
 
+    // Check if this pattern ID is already recorded for this line
+    for (int i = 0; i < context->match_count; i++) {
+        if (context->matches[i] == (int)id) {
+            return 0; // Pattern already recorded, continue scanning
+        }
+    }
+
     // Resize matches array if needed
     if (context->match_count >= context->match_capacity) {
         context->match_capacity *= 2;
@@ -411,6 +418,7 @@ static int onMatch(unsigned int id, unsigned long long from, unsigned long long 
         }
     }
 
+    // Add the new unique pattern ID
     context->matches[context->match_count++] = id;
     return 0; // Continue scanning
 }
