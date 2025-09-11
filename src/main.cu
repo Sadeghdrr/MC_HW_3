@@ -77,6 +77,7 @@ typedef struct {
     int* matches;           // Array to store IDs of matched rules.
     int match_count;        // Number of matches found for the current line.
     int match_capacity;     // Allocated capacity of the matches array.
+    long* total_match_events; // Pointer to thread-accumulated raw match events
 } MatchContext;
 
 /**
@@ -418,8 +419,9 @@ static int onMatch(unsigned int id, unsigned long long from, unsigned long long 
         }
     }
 
-    // Add the new unique pattern ID
+    // Add the new unique pattern ID and count unique matches
     context->matches[context->match_count++] = id;
+    if (context->total_match_events) { (*(context->total_match_events))++; }
     return 0; // Continue scanning
 }
 
@@ -473,7 +475,7 @@ void* worker_thread(void* arg) {
             continue;
         }
 
-        data->total_matches += context.match_count;
+        // total matches already counted via callback
 
         // Format the result string with ZERO-INDEXED pattern numbers (e.g., "0,3,9")
         if (context.match_count > 0) {
@@ -643,7 +645,7 @@ int run_cpu_mode(const config_t* config) {
     printf("  Throughput (Input/sec): %.2f\n", throughput_input_per_sec);
     printf("  Throughput (MBytes/sec): %.2f\n", throughput_mbytes_per_sec);
     printf("  Throughput (Match/sec): %.2f\n", throughput_match_per_sec);
-    printf("  Latency (ms/input): %.4f\n", latency_ms);
+    printf("  Latency (ms/input): %.6f\n", latency_ms);
 
     // --- 7. Write Output Files ---
     char* output_filename = generate_output_filename(config);
@@ -670,7 +672,7 @@ int run_cpu_mode(const config_t* config) {
         fprintf(perf_file, "threads,throughput_input_per_sec,throughput_mbytes_per_sec,throughput_match_per_sec,latency_ms\n");
     }
     
-    fprintf(perf_file, "%d,%.2f,%.2f,%.2f,%.4f\n",
+    fprintf(perf_file, "%d,%.2f,%.2f,%.2f,%.6f\n",
             config->num_threads,
             throughput_input_per_sec,
             throughput_mbytes_per_sec,
@@ -735,6 +737,22 @@ int run_gpu_mode(const config_t* config) {
         std::vector<std::string> patterns;
         patterns.reserve(pattern_count);
         for (long i = 0; i < pattern_count; ++i) patterns.emplace_back(patterns_c[i]);
+
+        // --- 2.5) Precompile regex programs once and reuse ---
+        std::vector<std::unique_ptr<cudf::strings::regex_program>> programs;
+        programs.reserve(pattern_count);
+        std::vector<char> pattern_disabled(pattern_count, 0);
+        for (long i = 0; i < pattern_count; ++i) {
+            try {
+                programs.emplace_back(cudf::strings::regex_program::create(patterns[i]));
+            } catch (const std::exception& e) {
+                // Disable patterns that fail to compile; we'll skip them at runtime
+                programs.emplace_back(nullptr);
+                pattern_disabled[i] = 1;
+                fprintf(stderr, "Warning: precompile failed for pattern %ld: %s (skipping)\n", i, e.what());
+            }
+        }
+
 
         // --- 3) Read input lines ---
         printf("Reading input data from '%s'...\n", config->input_file);
@@ -807,12 +825,21 @@ int run_gpu_mode(const config_t* config) {
 
                     try {
                         // Compile regex program
-                        auto prog = cudf::strings::regex_program::create(pat);
+                        auto& prog = programs[p];
 
                         // Kernel-ish time: contains_re (GPU)
                         struct timespec k_s, k_e;
                         clock_gettime(CLOCK_MONOTONIC, &k_s);
-                        auto bool_col = cudf::strings::contains_re(sview, *prog);
+                        std::unique_ptr<cudf::column> bool_col;
+                        try {
+                            if (!prog || pattern_disabled[p]) { throw std::runtime_error("disabled or null program"); }
+                            bool_col = cudf::strings::contains_re(sview, *prog);
+                        } catch (const std::exception& e) {
+                            fprintf(stderr, "Warning: contains_re failed for pattern %ld: %s (disabling)\n", p, e.what());
+                            pattern_disabled[p] = 1;
+                            (void)cudaGetLastError();
+                            continue;
+                        }
                         CUDA_CHECK(cudaStreamSynchronize(stream.value()));
                         clock_gettime(CLOCK_MONOTONIC, &k_e);
                         acc_kernel += (k_e.tv_sec - k_s.tv_sec) + (k_e.tv_nsec - k_s.tv_nsec)/1e9;
@@ -830,6 +857,15 @@ int run_gpu_mode(const config_t* config) {
 
                         // Accumulate results
                         long chunk_matches = 0;
+                        {
+                            auto err_ = cudaPeekAtLastError();
+                            if (err_ != cudaSuccess) {
+                                fprintf(stderr, "Warning: device error after contains_re for pattern %ld: %s (disabling)\n", p, cudaGetErrorString(err_));
+                                pattern_disabled[p] = 1;
+                                (void)cudaGetLastError();
+                                continue;
+                            }
+                        }
                         for (int i = 0; i < nrows; ++i) {
                             if (h[i]) {
                                 line_matches[lo + i].push_back((int)p);
@@ -888,7 +924,7 @@ int run_gpu_mode(const config_t* config) {
         printf("  Throughput (Input/sec): %.2f\n", thr_input);
         printf("  Throughput (MBytes/sec): %.2f\n", thr_mb);
         printf("  Throughput (Match/sec): %.2f\n", thr_match);
-        printf("  Latency (ms/input): %.4f\n", latency_ms);
+        printf("  Latency (ms/input): %.6f\n", latency_ms);
 
         // --- Write outputs (same layout) ---
         char* output_filename = generate_output_filename(config);
