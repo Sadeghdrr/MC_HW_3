@@ -463,6 +463,7 @@ void* worker_thread(void* arg) {
              continue;
         }
         context.match_count = 0;
+        context.total_match_events = &data->total_matches; // Fix: Point to thread's total match counter
 
         // Perform the scan
         hs_error_t err = hs_scan(data->database, data->lines[i], data->line_lengths[i], 0,
