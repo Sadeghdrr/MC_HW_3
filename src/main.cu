@@ -283,7 +283,7 @@ config_t parse_arguments(int argc, char* argv[]) {
     // Defaults for GPU tuning
     config.gpu_streams = 6;
     config.gpu_wave    = 48;
-    config.gpu_chunk_mb= 128;
+    config.gpu_chunk_mb= 64;
 
     
     if (argc < 5) {  // Minimum required arguments for GPU mode
