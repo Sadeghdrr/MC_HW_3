@@ -743,6 +743,7 @@ int run_gpu_mode(const config_t* config) {
         std::vector<std::unique_ptr<cudf::strings::regex_program>> programs;
         programs.reserve(pattern_count);
         std::vector<char> pattern_disabled(pattern_count, 0);
+        pattern_disabled[899] = 1;
         for (long i = 0; i < pattern_count; ++i) {
             try {
                 programs.emplace_back(cudf::strings::regex_program::create(patterns[i]));
