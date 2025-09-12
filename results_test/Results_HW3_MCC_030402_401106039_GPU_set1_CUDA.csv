@@ -1,0 +1,2 @@
+Mode,DataSet,Library,TotalTime,TotalMatches,InputPerSec,MBPerSec,MatchPerSec,LatencyMs,H2D,Kernel,D2H
+GPU,set1,CUDA,62.803109,1120780,31845.56,1.64,17845.93,0.031402,0.095163,55.659139,6.482357

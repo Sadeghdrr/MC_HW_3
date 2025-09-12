@@ -1,0 +1,412 @@
+Running comprehensive CPU performance tests...
+=================================================
+              Testing Dataset: set1.txt   
+=================================================
+Testing with 1 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set1.txt'...
+Read 2000000 lines, total size: 102.80 MB.
+Processing with 1 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 1.5840 seconds
+  Total Matches: 1043056
+  Throughput (Input/sec): 1262602.88
+  Throughput (MBytes/sec): 64.90
+  Throughput (Match/sec): 658482.76
+  Latency (ms/input): 0.000792
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_1.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_1.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set1_Hyperscan.csv'
+
+Testing with 2 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set1.txt'...
+Read 2000000 lines, total size: 102.80 MB.
+Processing with 2 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.9369 seconds
+  Total Matches: 1043056
+  Throughput (Input/sec): 2134649.64
+  Throughput (MBytes/sec): 109.72
+  Throughput (Match/sec): 1113279.56
+  Latency (ms/input): 0.000937
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_2.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_2.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set1_Hyperscan.csv'
+
+Testing with 4 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set1.txt'...
+Read 2000000 lines, total size: 102.80 MB.
+Processing with 4 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.4998 seconds
+  Total Matches: 1043056
+  Throughput (Input/sec): 4001851.80
+  Throughput (MBytes/sec): 205.69
+  Throughput (Match/sec): 2087077.77
+  Latency (ms/input): 0.001000
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_4.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_4.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set1_Hyperscan.csv'
+
+Testing with 8 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set1.txt'...
+Read 2000000 lines, total size: 102.80 MB.
+Processing with 8 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.3361 seconds
+  Total Matches: 1043056
+  Throughput (Input/sec): 5951447.62
+  Throughput (MBytes/sec): 305.90
+  Throughput (Match/sec): 3103846.57
+  Latency (ms/input): 0.001344
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_8.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_8.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set1_Hyperscan.csv'
+
+Testing with 16 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set1.txt'...
+Read 2000000 lines, total size: 102.80 MB.
+Processing with 16 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.3123 seconds
+  Total Matches: 1043056
+  Throughput (Input/sec): 6403332.48
+  Throughput (MBytes/sec): 329.13
+  Throughput (Match/sec): 3339517.18
+  Latency (ms/input): 0.002499
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_16.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_16.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set1_Hyperscan.csv'
+
+Testing with 32 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set1.txt'...
+Read 2000000 lines, total size: 102.80 MB.
+Processing with 32 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.3207 seconds
+  Total Matches: 1043056
+  Throughput (Input/sec): 6236466.44
+  Throughput (MBytes/sec): 320.55
+  Throughput (Match/sec): 3252491.87
+  Latency (ms/input): 0.005131
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_32.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set1_32.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set1_Hyperscan.csv'
+
+=================================================
+              Testing Dataset: set2.txt   
+=================================================
+Testing with 1 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set2.txt'...
+Read 2000000 lines, total size: 96.91 MB.
+Processing with 1 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 1.7089 seconds
+  Total Matches: 1563981
+  Throughput (Input/sec): 1170348.86
+  Throughput (MBytes/sec): 56.71
+  Throughput (Match/sec): 915201.69
+  Latency (ms/input): 0.000854
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_1.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_1.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set2_Hyperscan.csv'
+
+Testing with 2 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set2.txt'...
+Read 2000000 lines, total size: 96.91 MB.
+Processing with 2 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.8966 seconds
+  Total Matches: 1563981
+  Throughput (Input/sec): 2230614.57
+  Throughput (MBytes/sec): 108.08
+  Throughput (Match/sec): 1744319.40
+  Latency (ms/input): 0.000897
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_2.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_2.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set2_Hyperscan.csv'
+
+Testing with 4 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set2.txt'...
+Read 2000000 lines, total size: 96.91 MB.
+Processing with 4 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.5419 seconds
+  Total Matches: 1563981
+  Throughput (Input/sec): 3690754.95
+  Throughput (MBytes/sec): 178.84
+  Throughput (Match/sec): 2886135.31
+  Latency (ms/input): 0.001084
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_4.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_4.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set2_Hyperscan.csv'
+
+Testing with 8 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set2.txt'...
+Read 2000000 lines, total size: 96.91 MB.
+Processing with 8 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.3211 seconds
+  Total Matches: 1563981
+  Throughput (Input/sec): 6228432.03
+  Throughput (MBytes/sec): 301.80
+  Throughput (Match/sec): 4870574.68
+  Latency (ms/input): 0.001284
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_8.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_8.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set2_Hyperscan.csv'
+
+Testing with 16 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set2.txt'...
+Read 2000000 lines, total size: 96.91 MB.
+Processing with 16 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.2955 seconds
+  Total Matches: 1563981
+  Throughput (Input/sec): 6767953.40
+  Throughput (MBytes/sec): 327.94
+  Throughput (Match/sec): 5292475.26
+  Latency (ms/input): 0.002364
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_16.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_16.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set2_Hyperscan.csv'
+
+Testing with 32 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set2.txt'...
+Read 2000000 lines, total size: 96.91 MB.
+Processing with 32 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.3209 seconds
+  Total Matches: 1563981
+  Throughput (Input/sec): 6231656.42
+  Throughput (MBytes/sec): 301.96
+  Throughput (Match/sec): 4873096.12
+  Latency (ms/input): 0.005135
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_32.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set2_32.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set2_Hyperscan.csv'
+
+=================================================
+              Testing Dataset: set3.txt   
+=================================================
+Testing with 1 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set3.txt'...
+Read 2000000 lines, total size: 108.63 MB.
+Processing with 1 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 1.4014 seconds
+  Total Matches: 521563
+  Throughput (Input/sec): 1427174.66
+  Throughput (MBytes/sec): 77.51
+  Throughput (Match/sec): 372180.75
+  Latency (ms/input): 0.000701
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_1.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_1.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set3_Hyperscan.csv'
+
+Testing with 2 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set3.txt'...
+Read 2000000 lines, total size: 108.63 MB.
+Processing with 2 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.7523 seconds
+  Total Matches: 521563
+  Throughput (Input/sec): 2658465.10
+  Throughput (MBytes/sec): 144.39
+  Throughput (Match/sec): 693278.52
+  Latency (ms/input): 0.000752
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_2.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_2.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set3_Hyperscan.csv'
+
+Testing with 4 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set3.txt'...
+Read 2000000 lines, total size: 108.63 MB.
+Processing with 4 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.4635 seconds
+  Total Matches: 521563
+  Throughput (Input/sec): 4315444.70
+  Throughput (MBytes/sec): 234.39
+  Throughput (Match/sec): 1125388.14
+  Latency (ms/input): 0.000927
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_4.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_4.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set3_Hyperscan.csv'
+
+Testing with 8 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set3.txt'...
+Read 2000000 lines, total size: 108.63 MB.
+Processing with 8 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.2995 seconds
+  Total Matches: 521563
+  Throughput (Input/sec): 6678452.80
+  Throughput (MBytes/sec): 362.73
+  Throughput (Match/sec): 1741616.94
+  Latency (ms/input): 0.001198
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_8.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_8.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set3_Hyperscan.csv'
+
+Testing with 16 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set3.txt'...
+Read 2000000 lines, total size: 108.63 MB.
+Processing with 16 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.3218 seconds
+  Total Matches: 521563
+  Throughput (Input/sec): 6215363.80
+  Throughput (MBytes/sec): 337.58
+  Throughput (Match/sec): 1620851.89
+  Latency (ms/input): 0.002574
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_16.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_16.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set3_Hyperscan.csv'
+
+Testing with 32 thread(s)...
+High-Performance Regex Matching - Mode: CPU
+Reading and compiling regex rules from 'rules.txt'...
+Compilation successful. 2500 rules loaded.
+Reading input data from 'set3.txt'...
+Read 2000000 lines, total size: 108.63 MB.
+Processing with 32 worker thread(s)...
+Processing completed.
+Performance Metrics:
+  Total Time: 0.3096 seconds
+  Total Matches: 521563
+  Throughput (Input/sec): 6459431.59
+  Throughput (MBytes/sec): 350.83
+  Throughput (Match/sec): 1684500.26
+  Latency (ms/input): 0.004954
+Writing results to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_32.txt'...
+Results written to 'results/Results_HW3_MCC_030402_401106039_CPU_set3_32.txt' and 'results/Results_HW3_MCC_030402_401106039_CPU_set3_Hyperscan.csv'
+
+CPU performance tests complete.
+Running comprehensive GPU performance tests...
+=================================================
+              Testing Dataset: set1.txt       
+=================================================
+Testing with GPU...
+Warning: contains_re failed for pattern 899: disabled or null program (disabling)
+Warning: contains_re failed for pattern 899: disabled or null program (disabling)
+High-Performance Regex Matching - Mode: GPU
+Starting GPU mode processing with cuDF/RAPIDS...
+Using GPU: Tesla T4
+Reading regex patterns from 'rules.txt'...
+Loaded 2500 patterns.
+Reading input data from 'set1.txt'...
+Read 2000000 lines, total size: 102.80 MB.
+Chunking: 2 chunk(s), ~64 MB each (target).
+Formatting results...
+Performance Metrics (GPU):
+  Total Time: 62.8031 s
+  H2D: 0.0952 s, Kernel: 55.6591 s, D2H: 6.4824 s
+  Total Matches: 1120780
+  Throughput (Input/sec): 31845.56
+  Throughput (MBytes/sec): 1.64
+  Throughput (Match/sec): 17845.93
+  Latency (ms/input): 0.031402
+Writing results to 'results/Results_HW3_MCC_030402_401106039_GPU_set1_CUDA.txt'...
+"Using GPU flags: streams=6 wave=32 chunk=64MB"
+=================================================
+              Testing Dataset: set2.txt       
+=================================================
+Testing with GPU...
+Warning: contains_re failed for pattern 899: disabled or null program (disabling)
+Warning: contains_re failed for pattern 899: disabled or null program (disabling)
+High-Performance Regex Matching - Mode: GPU
+Starting GPU mode processing with cuDF/RAPIDS...
+Using GPU: Tesla T4
+Reading regex patterns from 'rules.txt'...
+Loaded 2500 patterns.
+Reading input data from 'set2.txt'...
+Read 2000000 lines, total size: 96.91 MB.
+Chunking: 2 chunk(s), ~64 MB each (target).
+Formatting results...
+Performance Metrics (GPU):
+  Total Time: 59.7498 s
+  H2D: 0.0908 s, Kernel: 52.6246 s, D2H: 6.4034 s
+  Total Matches: 1606519
+  Throughput (Input/sec): 33472.89
+  Throughput (MBytes/sec): 1.62
+  Throughput (Match/sec): 26887.42
+  Latency (ms/input): 0.029875
+Writing results to 'results/Results_HW3_MCC_030402_401106039_GPU_set2_CUDA.txt'...
+"Using GPU flags: streams=6 wave=32 chunk=64MB"
+=================================================
+              Testing Dataset: set3.txt       
+=================================================
+Testing with GPU...
+Warning: contains_re failed for pattern 899: disabled or null program (disabling)
+Warning: contains_re failed for pattern 899: disabled or null program (disabling)
+High-Performance Regex Matching - Mode: GPU
+Starting GPU mode processing with cuDF/RAPIDS...
+Using GPU: Tesla T4
+Reading regex patterns from 'rules.txt'...
+Loaded 2500 patterns.
+Reading input data from 'set3.txt'...
+Read 2000000 lines, total size: 108.63 MB.
+Chunking: 2 chunk(s), ~64 MB each (target).
+Formatting results...
+Performance Metrics (GPU):
+  Total Time: 68.0546 s
+  H2D: 0.1001 s, Kernel: 60.8582 s, D2H: 6.6044 s
+  Total Matches: 634766
+  Throughput (Input/sec): 29388.18
+  Throughput (MBytes/sec): 1.60
+  Throughput (Match/sec): 9327.31
+  Latency (ms/input): 0.034027
+Writing results to 'results/Results_HW3_MCC_030402_401106039_GPU_set3_CUDA.txt'...
+"Using GPU flags: streams=6 wave=32 chunk=64MB"
+GPU performance tests complete.

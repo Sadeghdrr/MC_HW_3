@@ -821,6 +821,16 @@ int run_gpu_mode(const config_t* config) {
             for (long p0 = 0; p0 < pattern_count; p0 += wave) {
                 long p1 = std::min(p0 + (long)wave, pattern_count);
 
+                // Store results for entire wave
+                std::vector<std::unique_ptr<cudf::column>> bool_cols;
+                std::vector<long> valid_pattern_indices;
+                bool_cols.reserve(p1 - p0);
+                valid_pattern_indices.reserve(p1 - p0);
+
+                // Kernel-ish time: contains_re (GPU) for entire wave
+                struct timespec k_s, k_e;
+                clock_gettime(CLOCK_MONOTONIC, &k_s);
+
                 for (long p = p0; p < p1; ++p) {
                     const std::string& pat = patterns[p];
                     if (pat.empty() || pat.size() > 2048) continue;
@@ -828,37 +838,44 @@ int run_gpu_mode(const config_t* config) {
                     try {
                         // Compile regex program
                         auto& prog = programs[p];
-
-                        // Kernel-ish time: contains_re (GPU)
-                        struct timespec k_s, k_e;
-                        clock_gettime(CLOCK_MONOTONIC, &k_s);
+                    
                         std::unique_ptr<cudf::column> bool_col;
                         try {
                             if (!prog || pattern_disabled[p]) { throw std::runtime_error("disabled or null program"); }
                             bool_col = cudf::strings::contains_re(sview, *prog);
+                            bool_cols.push_back(std::move(bool_col));
+                            valid_pattern_indices.push_back(p);
                         } catch (const std::exception& e) {
                             fprintf(stderr, "Warning: contains_re failed for pattern %ld: %s (disabling)\n", p, e.what());
                             pattern_disabled[p] = 1;
                             (void)cudaGetLastError();
                             continue;
                         }
-                        CUDA_CHECK(cudaStreamSynchronize(stream.value()));
-                        clock_gettime(CLOCK_MONOTONIC, &k_e);
-                        acc_kernel += (k_e.tv_sec - k_s.tv_sec) + (k_e.tv_nsec - k_s.tv_nsec)/1e9;
+                    } catch (const std::exception& e) {
+                        fprintf(stderr, "Warning: pattern %ld failed on chunk %zu: %s\n", p, ci, e.what());
+                        continue;
+                    }
+                } // end for p in wave
 
-                        // D2H: bring matches back
-                        struct timespec d2h_s, d2h_e;
-                        clock_gettime(CLOCK_MONOTONIC, &d2h_s);
+                CUDA_CHECK(cudaStreamSynchronize(stream.value()));
+                clock_gettime(CLOCK_MONOTONIC, &k_e);
+                acc_kernel += (k_e.tv_sec - k_s.tv_sec) + (k_e.tv_nsec - k_s.tv_nsec)/1e9;
+
+                // D2H and Accumulate results for entire wave
+                struct timespec d2h_s, d2h_e;
+                clock_gettime(CLOCK_MONOTONIC, &d2h_s);
+
+                for (size_t idx = 0; idx < bool_cols.size(); ++idx) {
+                    long p = valid_pattern_indices[idx];
+                    auto& bool_col = bool_cols[idx];
+
+                    try {
                         auto bv = bool_col->view();
                         const uint8_t* d = bv.data<uint8_t>();
                         std::vector<uint8_t> h(bv.size());
                         CUDA_CHECK(cudaMemcpyAsync(h.data(), d, h.size(), cudaMemcpyDeviceToHost, stream.value()));
                         CUDA_CHECK(cudaStreamSynchronize(stream.value()));
-                        clock_gettime(CLOCK_MONOTONIC, &d2h_e);
-                        acc_d2h += (d2h_e.tv_sec - d2h_s.tv_sec) + (d2h_e.tv_nsec - d2h_s.tv_nsec)/1e9;
 
-                        // Accumulate results
-                        long chunk_matches = 0;
                         {
                             auto err_ = cudaPeekAtLastError();
                             if (err_ != cudaSuccess) {
@@ -868,6 +885,9 @@ int run_gpu_mode(const config_t* config) {
                                 continue;
                             }
                         }
+
+                        // Accumulate results
+                        long chunk_matches = 0;
                         for (int i = 0; i < nrows; ++i) {
                             if (h[i]) {
                                 line_matches[lo + i].push_back((int)p);
@@ -876,11 +896,13 @@ int run_gpu_mode(const config_t* config) {
                         }
                         total_matches += chunk_matches;
                     } catch (const std::exception& e) {
-                        fprintf(stderr, "Warning: pattern %ld failed on chunk %zu: %s\n", p, ci, e.what());
-                        CUDA_CHECK(cudaStreamSynchronize(stream.value()));
+                        fprintf(stderr, "Warning: D2H failed for pattern %ld on chunk %zu: %s\n", p, ci, e.what());
                         continue;
                     }
-                } // end for p in wave
+                }
+
+                clock_gettime(CLOCK_MONOTONIC, &d2h_e);
+                acc_d2h += (d2h_e.tv_sec - d2h_s.tv_sec) + (d2h_e.tv_nsec - d2h_s.tv_nsec)/1e9;
             } // end waves per chunk
 
             // Free the big strings column ASAP
