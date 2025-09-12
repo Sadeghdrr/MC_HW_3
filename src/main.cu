@@ -238,7 +238,7 @@ char* generate_output_filename(const config_t* config) {
         snprintf(filename, 512, "results/Results_HW3_MCC_030402_401106039_CPU_%s_%d.txt", 
                  dataset, config->num_threads);
     } else {
-        snprintf(filename, 512, "results/Results_HW3_MCC_030402_401106039_GPU_%s_CUDA.txt", 
+        snprintf(filename, 512, "results/Results_HW3_MCC_030402_401106039_GPU_%s_cuDF.txt", 
                  dataset);
     }
     
@@ -267,7 +267,7 @@ char* generate_performance_filename(const config_t* config, const char* input_fi
         snprintf(filename, 512, "results/Results_HW3_MCC_030402_401106039_CPU_%s_Hyperscan.csv", 
                  dataset_clean);
     } else {
-        snprintf(filename, 512, "results/Results_HW3_MCC_030402_401106039_GPU_%s_CUDA.csv", 
+        snprintf(filename, 512, "results/Results_HW3_MCC_030402_401106039_GPU_%s_cuDF.csv", 
                  dataset_clean);
     }
     
@@ -670,7 +670,7 @@ int run_cpu_mode(const config_t* config) {
     long file_size = ftell(perf_file);
     if (file_size == 0) {
         // File is empty, write header
-        fprintf(perf_file, "threads,throughput_input_per_sec,throughput_mbytes_per_sec,throughput_match_per_sec,latency_ms\n");
+        fprintf(perf_file, "threads,throughput_input_per_sec,throughput_mbytes_per_sec,throughput_match_per_sec,latency\n");
     }
     
     fprintf(perf_file, "%d,%.2f,%.2f,%.2f,%.6f\n",
@@ -961,12 +961,12 @@ int run_gpu_mode(const config_t* config) {
         char* perf_filename = generate_performance_filename(config, config->input_file);
         FILE* pf = fopen(perf_filename, "w");
         if (pf) {
-            fprintf(pf, "Mode,DataSet,Library,TotalTime,TotalMatches,InputPerSec,MBPerSec,MatchPerSec,LatencyMs,H2D,Kernel,D2H\n");
+            fprintf(pf, "matcher_name,throughput_input_per_sec,throughput_mbytes_per_sec,throughput_match_per_sec,latency\n");
             const char* dataset = strrchr(config->input_file, '/'); dataset = dataset? dataset+1: config->input_file;
             char dataset_clean[256]; strncpy(dataset_clean, dataset, sizeof(dataset_clean)-1); dataset_clean[sizeof(dataset_clean)-1]=0;
             char* dot = strrchr(dataset_clean, '.'); if (dot) *dot = 0;
-            fprintf(pf, "GPU,%s,CUDA,%.6f,%lld,%.2f,%.2f,%.2f,%.6f,%.6f,%.6f,%.6f\n",
-                    dataset_clean, elapsed, total_matches, thr_input, thr_mb, thr_match, latency_ms, acc_h2d, acc_kernel, acc_d2h);
+            fprintf(pf, "cuDF,%.2f,%.2f,%.2f,%.6f\n",
+                    thr_input, thr_mb, thr_match, latency_ms);
             fclose(pf);
         }
 
